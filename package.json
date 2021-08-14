@@ -1,0 +1,28 @@
+{
+  "name": "codemirror-mode-nginx-renewed",
+  "version": "1.0.0",
+  "description": "Improved nginx mode for CodeMirror",
+  "main": "src/nginx-renewed.js",
+  "files": [
+    "index.html"
+  ],
+  "scripts": {
+    "test": "true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xavierog/codemirror-mode-nginx-renewed.git"
+  },
+  "keywords": [
+    "codemirror-mode",
+    "nginx",
+    "nginx-plus",
+    "openresty"
+  ],
+  "author": "Xavier G.",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/xavierog/codemirror-mode-nginx-renewed/issues"
+  },
+  "homepage": "https://github.com/xavierog/codemirror-mode-nginx-renewed#readme"
+}
