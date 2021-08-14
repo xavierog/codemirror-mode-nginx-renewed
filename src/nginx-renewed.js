@@ -1844,6 +1844,7 @@ CodeMirror.defineMode("nginx-renewed", function(editor_options) {
 		copyState: copyState,
 		token: tokenBase,
 		indent: indent,
+		lineComment: '#',
 		data: {
 			known_directives: known_directives
 		},

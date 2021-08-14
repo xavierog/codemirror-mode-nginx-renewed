@@ -75,7 +75,17 @@
 				<li>assumes the textarea reflects nginx's main scope (i.e. the same scope as nginx.conf);</li>
 				<li>checks whether each directive is allowed in the current scope.</li>
 			</ol>
-			The textareas below showcase codemirror-mode-nginx-renewed's capabilities:
+			The textareas below showcase codemirror-mode-nginx-renewed's capabilities.
+		</p>
+		<p>
+			Useful commands:
+			<ul>
+				<li>Ctrl+d: toggle comments</li>
+				<li>Ctrl+]: indent</li>
+				<li>Ctrl+[: unindent</li>
+				<li>Tab: auto-indent the current line or selection</li>
+				<li>Shift+Tab: if something is selected, indent it by one indent unit; otherwise, insert a tab character</li>
+			</ul>
 		</p>
 		<textarea data-mime="text/x-nginx-conf">
 user       www www;
@@ -499,6 +509,12 @@ proxy_ssl_name mybackendX.mycompany.com;</textarea>
 			referrerpolicy="no-referrer">
 		</script>
 		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/addon/comment/comment.min.js"
+			integrity="sha512-U0udq4Tvwzb+OiL6f7aak/n07mlIutTl+pEPtKoK0oOTF4Q9SkLOQYvKpIaCIM8CKTufd7szgeN9VDcgXDVvWg=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer">
+		</script>
+		<script
 			src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/mode/lua/lua.min.js"
 			integrity="sha512-MXR/wu8WxkFikybMYGuaR9O0SgRrcSReZUNuherC0XZ7SJN/db3W+qQCh+4rAiBBeNk/yd/NdnQd/s2nO4q4fA=="
 			crossorigin="anonymous"
@@ -524,6 +540,9 @@ proxy_ssl_name mybackendX.mycompany.com;</textarea>
 					indentWithTabs: true,
 					indentUnit: 4,
 					showCursorWhenSelecting: true,
+					extraKeys: {
+						'Ctrl-D': 'toggleComment',
+					},
 					mode: mode,
 				};
 				CodeMirror.fromTextArea(textarea, conf);
