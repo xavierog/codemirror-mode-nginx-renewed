@@ -1788,12 +1788,16 @@ CodeMirror.defineMode("nginx-renewed", function(editor_options) {
 		return '';
 	}
 
-	function startState() {
-		var new_state = {
+
+	function emptyState() {
+		return {
 			context: [],
 			context_state: [],
 			modes: {},
 		};
+	}
+	function startState() {
+		var new_state = emptyState();
 		var i, initial_scopes = options.initial_scope.split('/');
 		for (i = 0; i < initial_scopes.length; ++ i) {
 			push(new_state, 'block_' + initial_scopes[i], {initial: true});
@@ -1807,7 +1811,7 @@ CodeMirror.defineMode("nginx-renewed", function(editor_options) {
 		return new_state;
 	}
 	function copyState(o) { // o = original
-		var i, oo, oc, key, c = startState(); // c = copy, oo = original object, oc = object copy
+		var i, oo, oc, key, c = emptyState(); // c = copy, oo = original object, oc = object copy
 		for (i = 0; i < o.context_state.length; ++i) {
 			oo = o.context_state[i];
 			oc = {};
