@@ -1700,6 +1700,14 @@ CodeMirror.defineMode("nginx-renewed", function(editor_options) {
 		return error(stream);
 	}
 
+	function current_scope_depth(state) {
+		var depth = 0;
+		for (i = 0; i < state.context.length; ++ i) {
+			if (state.context[i].match(/^block_.+/) && !state.context_state[i].initial) ++ depth;
+		}
+		return depth;
+	}
+
 	function current_scope_as_string(state) {
 		var rem, i, scopes = '', previous = null;
 		for (i = 0; i < state.context.length; ++ i) {
@@ -1788,6 +1796,12 @@ CodeMirror.defineMode("nginx-renewed", function(editor_options) {
 		return '';
 	}
 
+	function indent(state, text) {
+		var depth = current_scope_depth(state);
+		if (depth && text.length && text[0] === '}') -- depth;
+		var indent = editor_options.indentUnit || 2;
+		return depth * indent;
+	}
 
 	function emptyState() {
 		return {
@@ -1829,6 +1843,7 @@ CodeMirror.defineMode("nginx-renewed", function(editor_options) {
 		startState: startState,
 		copyState: copyState,
 		token: tokenBase,
+		indent: indent,
 		data: {
 			known_directives: known_directives
 		},
