@@ -16,7 +16,7 @@ function get {
 }
 
 function list_openresty_modules {
-	local github_query_url='https://github.com/openresty?q=nginx-module&type=source&language=c&sort=name'
+	local github_query_url='https://github.com/orgs/openresty/repositories?language=c&q=nginx-module&sort=name&type=source'
 	get "${github_query_url}" | perl -nlE 'say $1 if m#/([^/]+-nginx-module)#' | sort -u
 }
 
