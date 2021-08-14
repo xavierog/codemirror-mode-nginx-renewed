@@ -1701,12 +1701,15 @@ CodeMirror.defineMode("nginx-renewed", function(editor_options) {
 	}
 
 	function current_scope_as_string(state) {
-		var rem, i, scopes = '';
+		var rem, i, scopes = '', previous = null;
 		for (i = 0; i < state.context.length; ++ i) {
 			rem = state.context[i].match(/^block_(.+)/);
 			if (rem) {
+				// Locations can be nested: prevent them from piling up:
+				if (previous === 'location' && rem[1] === 'location') continue;
 				if (scopes.length) scopes += '/';
 				scopes += rem[1];
+				previous = rem[1];
 			}
 		}
 		return scopes;

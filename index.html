@@ -214,21 +214,27 @@ http {
 			proxy_redirect ~^(http://[^:]+):\d+(/.+)$ $1$2;
 			proxy_redirect ~*/user/([^/]+)/(.+)$      http://$1.example.com/$2;
 
-			proxy_cookie_domain off;
-			proxy_cookie_domain localhost example.org;
-			proxy_cookie_domain www.$host $host;
-			proxy_cookie_domain "~\.(?<domain_and_tld>[a-z]+\.[a-z]+)$" "${domain_and_tld}";
+			location /foo {
+				proxy_cookie_domain off;
+				proxy_cookie_domain localhost example.org;
+				proxy_cookie_domain www.$host $host;
+				proxy_cookie_domain "~\.(?<domain_and_tld>[a-z]+\.[a-z]+)$" "${domain_and_tld}";
 
-			proxy_cookie_path off;
-			proxy_cookie_path /two/ /;
-			proxy_cookie_path $uri "/some${uri}";
-			proxy_cookie_path "~*^/user/(?<username>[^/]+)" "/u/${username}";
+				location /foo/bar {
+					proxy_cookie_path off;
+					proxy_cookie_path /two/ /;
+					proxy_cookie_path $uri "/some${uri}";
+					proxy_cookie_path "~*^/user/(?<username>[^/]+)" "/u/${username}";
 
-			proxy_cookie_flags off;
-			proxy_cookie_flags one httponly;
-			proxy_cookie_flags ${my_cookie} nohttponly;
-			proxy_cookie_flags ${app_name}_session secure "samesite=${my_map}" httponly;
-			proxy_cookie_flags ~^(?i:alpha_cookie|cookie_beta)$ nosecure samesite=strict;
+					location /foo/bar/baz {
+						proxy_cookie_flags off;
+						proxy_cookie_flags one httponly;
+						proxy_cookie_flags ${my_cookie} nohttponly;
+						proxy_cookie_flags ${app_name}_session secure "samesite=${my_map}" httponly;
+						proxy_cookie_flags ~^(?i:alpha_cookie|cookie_beta)$ nosecure samesite=strict;
+					}
+				}
+			}
 		}
 
 		# Enforce HTTPS for domain.tld subdomains:
