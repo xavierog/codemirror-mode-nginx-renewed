@@ -1,6 +1,6 @@
 {
   "name": "codemirror-mode-nginx-renewed",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Improved nginx mode for CodeMirror",
   "main": "src/nginx-renewed.js",
   "files": [
