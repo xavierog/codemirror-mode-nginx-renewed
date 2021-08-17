@@ -1,4 +1,4 @@
-CodeMirror.defineMode("nginx-renewed", function(editor_options) {
+CodeMirror.defineMode("nginx-renewed", function(editor_options, mode_options) {
 	var
 		ANY         =      1, // anywhere (basically: "include")
 		MAIN        =      2, // main configuration level; skipping "DIRECT" on purpose here
@@ -979,9 +979,8 @@ CodeMirror.defineMode("nginx-renewed", function(editor_options) {
     };
 
     // Override default settings with user-provided settings:
-	var user_options = typeof editor_options.mode === 'string' ? {} : editor_options.mode;
 	for (option in options) {
-		if (option in user_options) options[option] = user_options[option];
+		if (option in mode_options) options[option] = mode_options[option];
 	}
 
 	// Look for available modes that can be nested:
@@ -1007,7 +1006,7 @@ CodeMirror.defineMode("nginx-renewed", function(editor_options) {
 	for (var mime in nested_modes) {
 		var mode_for_mime = nested_modes[mime];
 		mode_for_mime.options.name = mime;
-		var cm_mode = CodeMirror.getMode({mode: mode_for_mime.options}, mode_for_mime.options);
+		var cm_mode = CodeMirror.getMode(editor_options, mode_for_mime.options);
 		// CodeMirror is liable to return a mode named "null":
 		if (cm_mode.name != 'null') mode_for_mime.instance = cm_mode;
 	}
